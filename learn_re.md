@@ -1,5 +1,3 @@
-@toc
-
 # 正则表达式
 
 ##  正则表达式的常用操作符
@@ -82,7 +80,7 @@ import re
 100081
 ```
 
-# re.match(pattern, string, flags=0)
+### re.match(pattern, string, flags=0)
  + 从一个字符串的开始位置起匹配正则表达式，返回match对象
   + pattern：正则表达式的字符串或原生字符串表示
   + string：待匹配字符串
@@ -105,7 +103,7 @@ AttributeError: 'NoneType' object has no attribute 'group'
 >>>
 ```
 
-# re.findall(pattern, string, flags=0)
+### re.findall(pattern, string, flags=0)
 + 搜索字符串，以列表类型返回全部能匹配的子串
   + pattern：正则表达式的字符串或原生字符串表示
   + string：待匹配字符串
@@ -117,7 +115,7 @@ AttributeError: 'NoneType' object has no attribute 'group'
 >>>
 ```
 
-# re.split(pattern, string, maxsplit=0, flags=0)
+### re.split(pattern, string, maxsplit=0, flags=0)
 + 将一个字符串按照正则表达式匹配结果进行分割，返回列表类型
   + pattern：正则表达式的字符串或原生字符串表示
   + string：待匹配字符串
