@@ -65,6 +65,7 @@ import re
   + pattern：正则表达式的字符串或原生字符串表示
   + string：待匹配字符串
   + flags：正则表达式使用时的控制标记
+     
      |常用标记|说明|
      |-|-|
      |re.I re.IGNORECASE|忽略正则表达式的大小写，[A-A]能够匹配小写字符|
@@ -197,6 +198,8 @@ AttributeError: 'NoneType' object has no attribute 'group'
 ```
 
 match对象的属性
+
+
 |属性|说明|
 |-|-|
 |.string|待匹配的文本|
@@ -204,7 +207,11 @@ match对象的属性
 |.pos|正则表达式搜索文本的开始位置|
 |.endpos|正则表达式搜索文本的结束位置|
 
+
+
+
 match对象的方法
+
 |方法|说明|
 |-|-|
 |.group(0)|获得匹配后的字符串|
