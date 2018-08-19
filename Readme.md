@@ -75,15 +75,15 @@ import re
 
 |函数|说明|
 |-|-|
-|re.search()|在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象|
-|re.match()|从一个字符串的开始位置起匹配正则表达式，返回match对象|
-|re.findall()|搜索字符串，以列表类型返回全部能匹配的子串|
+|re.search()|在任意位置开始往后查找，返回第一个符合规则的，只匹配一次。返回match对象|
+|re.match()|在**起始**位置开始往后查找，返回第一个符合规则的，只匹配一次。返回match对象|
+|re.findall()|所有的全部匹配，以列表类型返回全部能匹配的子串|
 |re.split()|将一个字符串按照正则表达式匹配结果进行分割，返回列表类型|
 |re.finditer()|搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是match对象|
 |re.sub()|在一个字符串中替换素有匹配正则表达式的子串，返回替换后的字符串|
 
 
-### re.serch(pattern, string, flags=0)
+### re.search(pattern, string, flags=0)
 + 在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象。
   + pattern：正则表达式的字符串或原生字符串表示
   + string：待匹配字符串
@@ -111,6 +111,20 @@ import re
   + flags：正则表达式使用时的控制标记
 
 ```python
+>>> import re
+>>> pattern = re.compile(r'\d+')
+>>> m = pattern.match('abc123def456')
+>>> m  # 从一个字符串的开始位置起匹配正则表达式，所以在abc123def456前面没有数字匹配
+
+>>> m = pattern.match('abc123def456', 3, 5)
+>>> type(m)
+<class '_sre.SRE_Match'>
+>>> print(m.group(0))
+12  
+
+
+
+
 >>> import re
 >>> match = re.match(r'[1-9]\d{5}', 'BIT 100081')
 >>> if match:
