@@ -13,7 +13,7 @@
 		- [re.sub(pattern, repl, string, count=0, flags=0)](#resubpattern-repl-string-count0-flags0)
 	- [Re库的另一种等价用法](#re库的另一种等价用法)
 		- [regex = re.compile(pattern, flags=0)](#regex-recompilepattern-flags0)
-	- [math对象](#math对象)
+	- [match对象](#match对象)
 	- [Re库的贪婪匹配和最小匹配](#re库的贪婪匹配和最小匹配)
 - [常用正则表达式](#常用正则表达式)
 
@@ -28,7 +28,7 @@
 |.|表示任何单个字符| |
 |[ ]|字符集，对单个字符给出取值范围|[abc]表示a、b、c，[a-z]表示a到z单个字符|
 |[^ ]|非字符集，对单个字符给出排除范围|[^abc]表示非a或b或c的单个字符|
-|*|前一个字符0次货无限次扩展|abc*表示ab、abc、abcc、abccc等|
+|*|前一个字符0次或无限次扩展|abc*表示ab、abc、abcc、abccc等|
 |+|前一个字符1次或无限次扩展|abc+表示abc、abcc、abccc等|
 |?|前一个字符0次或1次扩展|abc？表示ab、abc|
 |\||左右表达式任意一个|abc\|def表示abc、def|
@@ -222,7 +222,7 @@ AttributeError: 'NoneType' object has no attribute 'group'
 |regex.finditer()|搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是match对象|
 |regex.sub()|在一个字符串中替换素有匹配正则表达式的子串，返回替换后的字符串|
 
-## math对象
+## macth对象
 ```python
 >>> import re
 >>> match = re.search(r'[1-9]\d{5}', 'BIT 100081')
