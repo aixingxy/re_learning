@@ -5,7 +5,7 @@
 	- [正则表达式语法实例](#正则表达式语法实例)
 	- [经典正则表达式实例](#经典正则表达式实例)
 	- [Re库](#re库)
-		- [re.serch(pattern, string, flags=0)](#reserchpattern-string-flags0)
+		- [re.search(pattern, string, flags=0)](#researchpattern-string-flags0)
 		- [re.match(pattern, string, flags=0)](#rematchpattern-string-flags0)
 		- [re.findall(pattern, string, flags=0)](#refindallpattern-string-flags0)
 		- [re.split(pattern, string, maxsplit=0, flags=0)](#resplitpattern-string-maxsplit0-flags0)
@@ -13,13 +13,11 @@
 		- [re.sub(pattern, repl, string, count=0, flags=0)](#resubpattern-repl-string-count0-flags0)
 	- [Re库的另一种等价用法](#re库的另一种等价用法)
 		- [regex = re.compile(pattern, flags=0)](#regex-recompilepattern-flags0)
-	- [match对象](#match对象)
+	- [macth对象](#macth对象)
 	- [Re库的贪婪匹配和最小匹配](#re库的贪婪匹配和最小匹配)
 - [常用正则表达式](#常用正则表达式)
 
 <!-- /TOC -->
-![](img/2015430160820157.png)
-
 # 正则表达式
 
 ##  正则表达式的常用操作符
@@ -34,9 +32,10 @@
 |\||左右表达式任意一个|abc\|def表示abc、def|
 |{m}|扩展前一个字符m次|ab{2}c表示abbc|
 |{m,n}|扩展前一个字符m至n次（含n）|ab{1,2}c表示abc、abbc|
+||{m,}|扩展前一个字符至少m次|ab{2，}c表示abbc、abbbc、abbbbc...|   |   |   |
 |^|匹配字符串开头|^abc表示abc且在一个字符串的开头|
 |$|匹配字符串结尾|abc$表示abc且在一个字符串的结尾|
-|( )|分组标记，内部只能使用\|操作符|(abc)表示abc，(av\|def)表示abc、def|
+|( )|分组标记，内部只能使用\|操作符|(abc)表示abc，(abc\|def)表示abc、def|
 |\d|数字，等价与[0-9]| |
 |\w|单词字符，等价于[A-Za-z0-9]| |
 
@@ -120,7 +119,7 @@ import re
 >>> type(m)
 <class '_sre.SRE_Match'>
 >>> print(m.group(0))
-12  
+12
 
 
 
