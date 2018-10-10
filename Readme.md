@@ -2,12 +2,16 @@
 
 - [正则表达式](#正则表达式)
 	- [正则表达式的常用操作符](#正则表达式的常用操作符)
+	- [正则表达式特殊序列](#正则表达式特殊序列)
+	- [正则表达式位置匹配](#正则表达式位置匹配)
 	- [正则表达式语法实例](#正则表达式语法实例)
 	- [经典正则表达式实例](#经典正则表达式实例)
+	- [进阶](#进阶)
 	- [Re库](#re库)
 		- [re.search(pattern, string, flags=0)](#researchpattern-string-flags0)
 		- [re.match(pattern, string, flags=0)](#rematchpattern-string-flags0)
 		- [re.findall(pattern, string, flags=0)](#refindallpattern-string-flags0)
+			- [使用findall时注意事项](#使用findall时注意事项)
 		- [re.split(pattern, string, maxsplit=0, flags=0)](#resplitpattern-string-maxsplit0-flags0)
 		- [re.finditer(pattern, string, flags=0)](#refinditerpattern-string-flags0)
 		- [re.sub(pattern, repl, string, count=0, flags=0)](#resubpattern-repl-string-count0-flags0)
@@ -32,13 +36,31 @@
 |\||左右表达式任意一个|abc\|def表示abc、def|
 |{m}|扩展前一个字符m次|ab{2}c表示abbc|
 |{m,n}|扩展前一个字符m至n次（含n）|ab{1,2}c表示abc、abbc|
-||{m,}|扩展前一个字符至少m次|ab{2，}c表示abbc、abbbc、abbbbc...|   |   |   |
-|^|匹配字符串开头|^abc表示abc且在一个字符串的开头|
-|$|匹配字符串结尾|abc$表示abc且在一个字符串的结尾|
-|( )|分组标记，内部只能使用\|操作符|(abc)表示abc，(abc\|def)表示abc、def|
-|\d|数字，等价与[0-9]| |
-|\w|单词字符，等价于[A-Za-z0-9]| |
+|{m,}|扩展前一个字符至少m次|ab{2，}c表示abbc、abbbc、abbbbc...|   |   |   |
+|( )|分组标记，内部只能使用\|操作符|(abc)表示abc，(abc\|def)表示abc、def，findall在有分组的情况下只会显示分组内容|
 
+##   正则表达式特殊序列
+|操作符|说明|备注|
+|-|-|-|
+|\A|只在字符串开头进行匹配|   |
+|\d|匹配任意十进制数|等价于[0-9]|
+|\D|匹配任意非十进制数|等价于[^0-9]|
+|\s|匹配任意空白字符|等价于[ \t\n\r\f\v]|
+|\S|匹配任意非空白字符|等价于[^ \t\n\r\f\v]|
+|\w|匹配任意数字和字母|等价于[a-zA-Z0-9_]|
+|\W|匹配任意非数字和字母的字符|等价于 [^a-zA-Z0-9_]|
+|\Z|只在字符串结尾进行匹配|   |
+
+##   正则表达式位置匹配
+
+|操作符|说明|实例|
+|-|-|-|
+|^|匹配开头，在多行匹配中匹配行开头|^abc表示abc且在一个字符串的开头|
+|$|匹配结尾，在多行匹配中匹配行结尾|abc$表示abc且在一个字符串的结尾|
+|\b|单词边界||
+|\B|非单词边界||
+|(?=p)|其中p是一个子模式，即p前面的位置|比如(?=l)，表示'l'字符前面的位置|
+|(?!p)|(?=p)的反面意思|比如(?!l)，表示不是'l'字符前面的位置|
 
 ## 正则表达式语法实例
 ```
@@ -61,6 +83,9 @@ PY{:3}N             <--->  'PN'、'PYN'、'PYYN'、'PYYYN'
 \s+                    <--->  空格
 ^(\s*)\n               <--->  空行
 ```
+
+## 进阶
+正则表达式系列总结 https://zhuanlan.zhihu.com/p/27653434
 
 ## Re库
 
@@ -123,8 +148,6 @@ import re
 12
 
 
-
-
 >>> import re
 >>> match = re.match(r'[1-9]\d{5}', 'BIT 100081')
 >>> if match:
@@ -153,6 +176,17 @@ AttributeError: 'NoneType' object has no attribute 'group'
 >>> ls
 ['100081', '100084']
 >>>
+```
+
+#### 使用findall时注意事项
+```python
+>>> import re
+>>> print(re.findall(r'(f|z)ood', 'food zood'))
+['f', 'z']
+>>> # findall 在有组的情况下只显示组的内容
+>>> # (?:) 取消优先打印分组的内容
+>>> print(re.findall(r'(?:f|z)ood', 'food zood'))
+['food', 'zood']
 ```
 
 ### re.split(pattern, string, maxsplit=0, flags=0)
@@ -440,3 +474,5 @@ Re库默认采用贪婪匹配，即输出匹配最长的子串
 33 IP地址：\d+\.\d+\.\d+\.\d+ (提取IP地址时有用)
 
 34 IP地址：((?:(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d))
+
+35 英文月日：'(?:Jan.|January|Feb.|February|Mar.|March|Apr.|April|May.|May|June.|June|July.|July|Aug.|Aguest|Sept.|September|Oct.|October|Nov.|November|Dec.|December)\s\b\d{1,2}\b'
